@@ -55,8 +55,4 @@ MongoDB: 27017 (внутрішній порт контейнера).
 ./public — фронтенд (HTML, CSS, JS).
 server.js — точка входу в застосунок.
 seed.js — скрипт початкового заповнення бази.
-<<<<<<< HEAD
 Dockerfile & docker-compose.yml — конфігурація Docker.
-=======
-Dockerfile & docker-compose.yml — конфігурація Docker.
->>>>>>> 6fae9de8b69e1aea277f16cc4d2af17c5ac9655d
