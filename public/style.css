@@ -5,14 +5,14 @@
   --primary: #0d6efd;
   --yellow: #f9e282;
   --white: #ffffff;
-  --text-main: #2d3436;    /* Глибокий графітовий замість чорного */
-  --text-muted: #7f8c8d;   /* Спокійний сірий */
+  --text-main: #2d3436;    
+  --text-muted: #7f8c8d;   
   --text-light: #b2bec3; 
 }
 
 body {
   background-color: var(--bg-light);
-  font-family: "Inter", sans-serif; /* ОНОВЛЕНИЙ ШРИФТ */
+  font-family: "Inter", sans-serif; 
   margin: 0;
   display: flex;
   color: var(--text-main);
@@ -47,7 +47,7 @@ body,
   color: var(--primary) !important;
 }
 
-/* --- Sidebar Brand (НОВІ СТИЛІ ЛОГОТИПА) --- */
+/* --- Sidebar Brand --- */
 .sidebar {
   width: 260px;
   background: var(--dark-sidebar);

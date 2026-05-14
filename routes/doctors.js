@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Doctor = require('../models/Doctor'); // Тільки імпорт!
+const Doctor = require('../models/Doctor'); 
 
 router.get('/', async (req, res) => {
     try {
