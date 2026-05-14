@@ -349,7 +349,7 @@ body,
   border: 1px solid transparent;
   white-space: nowrap;
   min-width: 100px;
-  transition: 0.3s;
+  transition: 0.3s ease;
   min-width: 105px;    
   padding: 8px 18px;
 }
