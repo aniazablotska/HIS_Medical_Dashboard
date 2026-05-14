@@ -3,19 +3,20 @@ const mongoose = require('mongoose');
 const path = require('path'); 
 const app = express();
 
-
+// Налаштування сервера та портів
 const PORT = process.env.PORT || 5005;
 
+// Підключення Мідлварів (Middleware)
 app.use(express.json());
 app.use(express.static('public'));
 
-// Видали старий dbURI (з атласом) і встав цей:
+// Головний маршрут для підключення до БД MongoDB
 const dbURI = process.env.MONGO_URI || 'mongodb://localhost:27017/his_db';
 
 mongoose.connect(dbURI)
     .then(() => console.log('✅ База даних (Docker) успішно підключена!'))
     .catch(err => console.log('❌ Помилка підключення до бази:', err));
-    
+
 // Реєстрація маршрутів
 app.use('/api/patients', require('./routes/patients'));
 app.use('/api/doctors', require('./routes/doctors'));
