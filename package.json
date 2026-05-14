@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "seed": "node seed.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests/*.test.js --timeout 10000 --exit"
   },
   "keywords": [
     "hospital",
@@ -22,5 +22,10 @@
   "dependencies": {
     "express": "^5.2.1",
     "mongoose": "^9.6.2"
+  },
+  "devDependencies": {
+    "chai": "^6.2.2",
+    "mocha": "^11.7.5",
+    "supertest": "^7.2.2"
   }
 }
