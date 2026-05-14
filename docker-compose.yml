@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  # Сервіс нашого додатку
+  app:
+    build: .
+    ports:
+      - "5005:5005"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/his_db
+    depends_on:
+      - mongodb
+
+  # Сервіс бази даних (локально в Docker, не Atlas)
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

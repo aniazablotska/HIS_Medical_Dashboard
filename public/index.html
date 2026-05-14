@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <title>HIS | Hospital System</title>
+    <!-- ПІДКЛЮЧЕННЯ ШРИФТУ INTER -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="sidebar">
+      <!-- ОНОВЛЕНИЙ ЛОГОТИП З ІКОНКОЮ -->
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <i class="bi bi-heart-pulse-fill"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">HIS</span>
+          <span class="brand-sub">Medical</span>
+        </div>
+      </div>
+
+      <div class="nav-menu">
+        <a class="nav-link active" id="btn-p" onclick="switchTab('patients')"
+          ><i class="bi bi-people-fill me-2"></i> Пацієнти</a
+        >
+        <a class="nav-link" id="btn-d" onclick="switchTab('doctors')"
+          ><i class="bi bi-person-vcard-fill me-2"></i> Лікарі</a
+        >
+        <a class="nav-link" id="btn-s" onclick="switchTab('services')"
+          ><i class="bi bi-briefcase-fill me-2"></i> Послуги</a
+        >
+        <a class="nav-link" id="btn-a" onclick="switchTab('appointments')"
+          ><i class="bi bi-calendar-check-fill me-2"></i> Записи</a
+        >
+        <a class="nav-link" id="btn-archive" onclick="switchTab('archive')"
+          ><i class="bi bi-archive-fill me-2"></i> Архів</a
+        >
+      </div>
+    </div>
+
+    <div class="main-content">
+      <!-- Статистика -->
+      <div class="stats-container">
+        <div class="stat-card">
+          <small>ПАЦІЄНТИ</small>
+          <h2 id="st-p">0</h2>
+        </div>
+        <div class="stat-card">
+          <small>ЛІКАРІ</small>
+          <h2 id="st-d">0</h2>
+        </div>
+        <div class="stat-card text-primary">
+          <small>АКТИВНІ</small>
+          <h2 id="st-a">0</h2>
+        </div>
+      </div>
+
+      <!-- Пошук -->
+      <div class="search-row-wrapper">
+        <div class="search-col">
+          <input type="text" id="globalSearch" class="search-input" placeholder="Пошук..." onkeyup="filterAll()" autocomplete="off">
+        </div>
+        <div class="search-spacer"></div> 
+        <div class="search-spacer"></div> 
+      </div>
+
+      <hr class="divider" />
+
+      <!-- ПАЦІЄНТИ -->
+      <div id="patients-section" class="section-fade">
+        <div class="section-header">
+          <h2 class="title">База пацієнтів</h2>
+          <button class="btn-warning-pill" onclick="openModal('pModal')">+ Реєстрація</button>
+        </div>
+        <div class="card overflow-hidden">
+          <table class="main-table">
+            <thead>
+              <tr>
+                <th style="width: 28%">Пацієнт</th>
+                <th style="width: 20%">Телефон</th>
+                <th style="width: 20%">ДН</th>
+                <th style="width: 22%">Місто проживання</th>
+                <th style="width: 15%">Дія</th>
+              </tr>
+            </thead>
+            <tbody id="pTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ЛІКАРІ -->
+      <div id="doctors-section" class="section-fade d-none">
+        <div class="section-header"><h2 class="title">Спеціалісти</h2></div>
+        <div class="grid-layout" id="dCards"></div>
+      </div>
+
+      <!-- ПОСЛУГИ -->
+      <div id="services-section" class="section-fade d-none">
+        <div class="section-header"><h2 class="title">Медичні послуги</h2></div>
+        <div class="grid-layout" id="sCards"></div>
+      </div>
+
+      <!-- ЗАПИСИ -->
+      <div id="appointments-section" class="section-fade d-none">
+        <div class="section-header">
+          <h2 class="title">Майбутні записи</h2>
+          <button class="btn-warning-pill" onclick="openAppModal()">+ Створити запис</button>
+        </div>
+        <div class="card overflow-hidden">
+          <table class="main-table">
+            <thead>
+              <tr>
+                <th style="width: 18%">ПАЦІЄНТ</th>
+                <th style="width: 20%">ЛІКАР</th>
+                <th style="width: 17%">ПОСЛУГА</th>
+                <th style="width: 8%">ЦІНА</th>
+                <th style="width: 11%">ДАТА</th>
+                <th style="width: 15%">ДІЯ</th>
+              </tr>
+            </thead>
+            <tbody id="aTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- АРХІВ -->
+      <div id="archive-section" class="section-fade d-none">
+        <div class="section-header"><h2 class="title">Архів завершених прийомів</h2></div>
+        <div class="card overflow-hidden">
+          <table class="main-table">
+            <thead>
+              <tr>
+                <th style="width: 23%">ПАЦІЄНТ</th>
+                <th style="width: 23%">ЛІКАР</th>
+                <th style="width: 19%">ПОСЛУГА</th>
+                <th style="width: 16%">ДАТА</th>
+                <th style="width: 13%">СТАТУС</th>
+              </tr>
+            </thead>
+            <tbody id="archiveTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- МОДАЛКИ -->
+    <div id="pModal" class="modal-overlay d-none">
+      <div class="modal-card">
+        <h3 class="modal-title">Реєстрація</h3>
+        <input type="text" id="pName" class="modal-input" placeholder="ПІБ" autocomplete="off" />
+        <input type="date" id="pDob" class="modal-input" />
+        <input type="email" id="pEmail" class="modal-input" placeholder="Email" autocomplete="off" />
+        <input type="text" id="pPhone" class="modal-input" placeholder="Телефон" autocomplete="off" />
+        <input type="text" id="pCity" class="modal-input" placeholder="Місто проживання" autocomplete="off" />
+        <button class="btn-submit-yellow" onclick="addPatient()">Зберегти</button>
+        <div class="modal-cancel" onclick="closeModal('pModal')">Скасувати</div>
+      </div>
+    </div>
+
+    <div id="appModal" class="modal-overlay d-none">
+      <div class="modal-card">
+        <h3 class="modal-title">Новий запис</h3>
+        <select id="selP" class="modal-input"></select>
+        <select id="selD" class="modal-input"></select>
+        <select id="selS" class="modal-input"></select>
+        <input type="date" id="appDate" class="modal-input" />
+        <button class="btn-submit-yellow" onclick="saveApp()">Забронювати</button>
+        <div class="modal-cancel" onclick="closeModal('appModal')">Скасувати</div>
+      </div>
+    </div>
+
+    <script>
+      let allServices = []; 
+
+      function openModal(id) { document.getElementById(id).classList.remove("d-none"); }
+      function closeModal(id) { 
+  document.getElementById(id).classList.add("d-none"); 
+  
+  if (id === 'pModal') {
+    document.getElementById("pName").value = "";
+    document.getElementById("pDob").value = "";
+    document.getElementById("pEmail").value = "";
+    document.getElementById("pPhone").value = "";
+    document.getElementById("pCity").value = "";
+  }
+}
+
+      function switchTab(tab) {
+        document.getElementById("globalSearch").value = "";
+        document.querySelectorAll(".search-item").forEach((i) => i.classList.remove("d-none"));
+        ["patients", "doctors", "appointments", "archive", "services"].forEach((s) => {
+            const el = document.getElementById(s + "-section");
+            if (el) el.classList.toggle("d-none", s !== tab);
+            const btn = document.getElementById("btn-" + (s === "archive" ? "archive" : s === "services" ? "s" : s[0]));
+            if (btn) btn.classList.toggle("active", s === tab);
+        });
+        refresh();
+      }
+
+      async function refresh() {
+        const [p, d, a, s] = await Promise.all([
+          fetch("/api/patients").then((r) => r.json()),
+          fetch("/api/doctors").then((r) => r.json()),
+          fetch("/api/appointments").then((r) => r.json()),
+          fetch("/api/services").then((r) => r.json()),
+        ]);
+
+        document.getElementById("st-p").innerText = p.length;
+        document.getElementById("st-d").innerText = d.length;
+        document.getElementById("st-a").innerText = a.filter((x) => x.status !== "Завершено").length;
+
+        document.getElementById("pTable").innerHTML = p.map((x) => `
+          <tr class="search-item">
+            <td><strong>${x.name}</strong><br><small class="text-muted">${x.email}</small></td>
+            <td>${x.phone}</td>
+            <td>${x.dob || "—"}</td>
+            <td>${x.city || "—"}</td>
+            <td><button class="btn-pill btn-blue-outline" style="min-width: 40px; padding: 5px;" onclick="delP('${x._id}')"><i class="bi bi-trash"></i></button></td>
+          </tr>`).join("");
+
+        document.getElementById("dCards").innerHTML = d.map((x) => `
+          <div class="card p-4 search-item">
+            <h5>${x.name}</h5>
+            <div class="text-primary small"><strong>${x.specialization}</strong></div>
+            <div class="mt-2 text-muted small">Каб: ${x.room} | ${x.schedule}</div>
+          </div>`).join("");
+
+        document.getElementById("sCards").innerHTML = s.map((x) => `
+          <div class="card p-4 search-item">
+            <div class="d-flex justify-between mb-2">
+              <span class="badge-service">Послуга</span>
+              <strong class="text-success">${x.price}</strong>
+            </div>
+            <h5 class="fw-bold">${x.name}</h5>
+            <div class="mt-auto text-muted small">${x.doctorName}</div>
+          </div>`).join("");
+
+        document.getElementById("aTable").innerHTML = a.filter((x) => x.status !== "Завершено").map((x) => {
+            let acceptBtn, archiveBtn;
+            if (x.status === "Заплановано") {
+              acceptBtn = `<button class="btn-pill btn-blue-outline" onclick="updateStatus('${x._id}', 'Прийнято')">Прийняти</button>`;
+              archiveBtn = `<button class="btn-pill btn-disabled" disabled>В архів</button>`;
+            } else {
+              acceptBtn = `<button class="btn-pill btn-gray-static" disabled>Прийнято</button>`;
+              archiveBtn = `<button class="btn-pill btn-yellow-pill" onclick="updateStatus('${x._id}', 'Завершено')">В архів</button>`;
+            }
+            return `<tr class="search-item">
+              <td><strong>${x.patientName}</strong></td>
+              <td>${x.doctorName}</td>
+              <td><span class="badge-outline">${x.service}</span></td>
+              <td>${x.price}</td> 
+              <td>${x.date}</td>
+              <td><div class="d-flex gap-2">${acceptBtn}${archiveBtn}</div></td>
+            </tr>`;
+        }).join("");
+
+        document.getElementById("archiveTable").innerHTML = a.filter((x) => x.status === "Завершено").map((x) => `
+          <tr class="text-muted search-item">
+            <td><strong>${x.patientName}</strong></td>
+            <td>${x.doctorName}</td>
+            <td><span class="badge-outline">${x.service}</span></td>
+            <td>${x.date}</td>
+            <td><span class="status-archived-pill">В архіві</span></td>
+          </tr>`).join("");
+      }
+
+      async function openAppModal() {
+        const [p, d, s] = await Promise.all([
+          fetch("/api/patients").then((r) => r.json()),
+          fetch("/api/doctors").then((r) => r.json()),
+          fetch("/api/services").then((r) => r.json()),
+        ]);
+
+        allServices = s;
+        const placeholder = (text) => `<option value="" disabled selected>${text}</option>`;
+
+        document.getElementById("selP").innerHTML = placeholder("Оберіть пацієнта...") + p.map(x => `<option value="${x.name}">${x.name}</option>`).join("");
+        document.getElementById("selD").innerHTML = placeholder("Оберіть лікаря...") + d.map(x => `<option value="${x.name}">${x.name}</option>`).join("");
+        
+        const selS = document.getElementById("selS");
+        selS.innerHTML = placeholder("Спочатку оберіть лікаря...");
+        selS.disabled = true;
+
+        document.getElementById("selD").onchange = (e) => {
+            const filtered = allServices.filter(svc => svc.doctorName === e.target.value);
+            if (filtered.length > 0) {
+                selS.innerHTML = placeholder("Оберіть послугу...") + filtered.map(x => `<option value="${x.name}" data-price="${x.price}">${x.name} (${x.price})</option>`).join("");
+                selS.disabled = false;
+            } else {
+                selS.innerHTML = placeholder("У лікаря немає послуг");
+                selS.disabled = true;
+            }
+        };
+
+        document.getElementById("appDate").value = "";
+        openModal("appModal");
+      }
+
+      async function updateStatus(id, stat) {
+        await fetch(`/api/appointments/${id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: stat }),
+        });
+        refresh();
+      }
+
+      async function saveApp() {
+        const p = document.getElementById("selP").value;
+        const d = document.getElementById("selD").value;
+        const sEl = document.getElementById("selS");
+        const date = document.getElementById("appDate").value;
+
+        if (!p || !d || !sEl.value || !date) return alert("Будь ласка, заповніть усі поля!");
+
+        const data = {
+          patientName: p,
+          doctorName: d,
+          service: sEl.value,
+          price: sEl.options[sEl.selectedIndex].getAttribute("data-price"),
+          date: date,
+        };
+
+        await fetch("/api/appointments", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        closeModal("appModal");
+        refresh();
+      }
+
+      async function addPatient() {
+        const name = document.getElementById("pName").value;
+        if (!name) return alert("ПІБ обов'язково");
+        await fetch("/api/patients", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            dob: document.getElementById("pDob").value,
+            email: document.getElementById("pEmail").value,
+            phone: document.getElementById("pPhone").value,
+            city: document.getElementById("pCity").value,
+          }),
+        });
+        document.getElementById("pName").value = "";
+        document.getElementById("pDob").value = "";
+        document.getElementById("pEmail").value = "";
+        document.getElementById("pPhone").value = "";
+        document.getElementById("pCity").value = "";
+        closeModal("pModal");
+        refresh();
+      }
+
+      async function delP(id) {
+        if (confirm("Видалити пацієнта?")) {
+          await fetch(`/api/patients/${id}`, { method: "DELETE" });
+          refresh();
+        }
+      }
+
+      function filterAll() {
+        const q = document.getElementById("globalSearch").value.toLowerCase();
+        document.querySelectorAll(".search-item").forEach((item) => {
+          item.classList.toggle("d-none", !item.innerText.toLowerCase().includes(q));
+        });
+      }
+
+      refresh();
+    </script>
+  </body>
+</html>

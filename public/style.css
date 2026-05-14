@@ -1,0 +1,551 @@
+/* --- Основа --- */
+:root {
+  --bg-light: #eff1f5;
+  --dark-sidebar: #1a1d21;
+  --primary: #0d6efd;
+  --yellow: #f9e282;
+  --white: #ffffff;
+  --text-main: #2d3436;    /* Глибокий графітовий замість чорного */
+  --text-muted: #7f8c8d;   /* Спокійний сірий */
+  --text-light: #b2bec3; 
+}
+
+body {
+  background-color: var(--bg-light);
+  font-family: "Inter", sans-serif; /* ОНОВЛЕНИЙ ШРИФТ */
+  margin: 0;
+  display: flex;
+  color: var(--text-main);
+}
+
+h2.title {
+  font-weight: 700;
+  color: var(--text-main);
+}
+.search-item strong,
+.card h5 {
+  font-weight: 600;
+  color: var(--text-main);
+}
+.nav-link,
+.btn {
+  font-weight: 500;
+}
+body,
+.text-muted {
+  font-weight: 400;
+}
+
+.d-none {
+  display: none !important;
+}
+.text-muted {
+  color: var(--text-muted) !important;
+  
+}
+.text-primary {
+  color: var(--primary) !important;
+}
+
+/* --- Sidebar Brand (НОВІ СТИЛІ ЛОГОТИПА) --- */
+.sidebar {
+  width: 260px;
+  background: var(--dark-sidebar);
+  height: 100vh;
+  position: fixed;
+  color: white;
+  z-index: 1000;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  padding: 30px 25px;
+  gap: 12px;
+}
+
+.brand-icon {
+  background: var(--primary);
+  color: white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.brand-name {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #ffffff !important;
+}
+
+.brand-sub {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 2px;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  padding: 0 15px;
+}
+.nav-link {
+  color: #a4b0be;
+  padding: 12px 20px;
+  text-decoration: none;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.nav-link:hover,
+.nav-link.active {
+  background: var(--primary);
+  color: white !important;
+}
+
+/* --- Головний блок --- */
+.main-content {
+  margin-left: 260px;
+  flex: 1;
+  padding: 40px;
+  min-width: 1100px;
+}
+* {
+  box-sizing: border-box; 
+}
+/* --- Статистика --- */
+.stats-container {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+.stat-card {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+.stat-card:hover {
+  transform: translateY(-5px);
+  background-color: #ffffff;
+  box-shadow: 0 8px 25px rgba(13, 110, 253, 0.08);
+  border-color: rgba(13, 110, 253, 0.1);
+}
+.stat-card h2 {
+  margin: 10px 0 0;
+  font-size: 2.2rem;
+}
+
+/* Контейнер для пошуку */
+.search-row-wrapper {
+  display: flex;
+  gap: 20px;           
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.search-col {
+  flex: 1;             
+  max-width: calc((100% - 40px) / 3); 
+}
+
+.search-input {
+  width: 100%;
+  height: 47px;
+  padding: 0 25px;
+  border-radius: 15px;
+  border: 1px solid transparent;
+  background-color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  outline: none;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  display: block; 
+}
+
+.search-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 8px 25px rgba(13, 110, 253, 0.08);
+}
+
+.search-spacer {
+  flex: 1;
+}
+
+/* --- Лінія (Divider) --- */
+.divider {
+  opacity: 0.1;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  border: none;
+  border-top: 1px solid #000;
+}
+
+/* --- Заголовки секцій --- */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  min-height: 45px;
+}
+
+.title {
+  margin: 0 !important;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+/* --- Картки та Таблиці --- */
+.card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+  margin-bottom: 25px;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: 1px solid transparent;
+  padding: 30px;
+}
+.card.overflow-hidden {
+  padding: 0 !important; 
+  overflow: hidden;      
+}
+.card h5 {
+  margin-top: 0 !important; 
+  margin-bottom: 12px; 
+  font-size: 1.2rem; 
+}
+
+.card strong,
+.card div {
+  margin-top: 0;
+}
+
+.card .text-primary, 
+.card .text-primary strong {
+  font-size: 1.1rem; 
+  color: #0d6efd !important;
+  display: inline-block;
+}
+
+
+
+.card .d-flex.justify-between {
+  margin-bottom: 8px !important; 
+  align-items: center;
+}
+.card h5.fw-bold {
+  margin-top: 0 !important; 
+  margin-bottom: 4px !important; 
+  line-height: 1.2; 
+  font-size: 1.2rem; 
+}
+
+.card .text-muted.small {
+  margin-top: 0 !important; 
+  font-size: 0.85rem; 
+  color: var(--text-muted);
+
+}
+
+.card.p-4 {
+  padding: 20px !important; 
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(13, 110, 253, 0.1);
+  border-color: rgba(13, 110, 253, 0.15);
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.p-4 {
+  padding: 1.5rem;
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.main-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+.main-table th {
+  background: #fcfcfc;
+  padding: 18px 20px;
+  text-align: left;
+  font-size: 0.75rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  border-bottom: 1px solid #f0f0f0;
+  border-top: none; 
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.main-table td {
+  padding: 18px 20px;
+  border-bottom: 1px solid #f7f7f7;
+  vertical-align: middle;
+  color: var(--text-main);
+}
+
+.main-table tbody tr {
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+.main-table tbody tr:hover {
+  background-color: var(--bg-light);
+}
+
+/* --- Кнопки --- */
+.btn-warning-pill {
+  background: var(--primary);
+  border: none;
+  padding: 10px 25px;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+  color: white;
+}
+.btn-warning-pill:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  filter: brightness(1.05);
+}
+
+.btn-pill {
+  padding: 7px 18px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  min-width: 100px;
+  transition: 0.3s;
+  min-width: 105px;    
+  padding: 8px 18px;
+}
+
+.btn-blue-outline {
+  background: #eef4ff;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+.btn-blue-outline:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-gray-static {
+  background: #f0f2f5;
+  color: #7a828a;
+  cursor: default;
+}
+
+.btn-yellow-pill {
+  background: var(--yellow);
+  color: #444;
+  border: none;
+}
+.btn-yellow-pill:hover {
+  transform: translateY(-2px);
+  background: #fce58a;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-disabled {
+  background: #f9f9f9;
+  color: #ddd;
+  cursor: default;
+  opacity: 0.6;
+}
+
+/* --- Бейджі та Статуси --- */
+.status-archived-pill {
+  background-color: #6c757d;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  display: inline-block;
+  min-width: 80px;
+  text-align: center;
+}
+
+.badge-outline {
+  border: 1px solid #0d6efd;
+  padding: 5px 18px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  background-color: #ffffff;
+  color: #000;
+  display: inline-block;
+}
+
+.badge-service {
+  background: #cfe2ff;
+  color: var(--primary);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+}
+
+/* --- МОДАЛКИ --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+}
+.modal-card {
+  background: white;
+  padding: 40px;
+  border-radius: 35px;
+  width: 440px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+}
+.modal-title {
+  margin: 0 0 30px;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--text-main);
+}
+
+.modal-input {
+  width: 100%;
+  padding: 14px 18px;
+  margin-bottom: 18px;
+  border: 1px solid #e0e0e0;
+  border-radius: 15px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  outline: none;
+  background-color: #fff;
+  height: 52px;
+  display: block;
+  transition: border-color 0.3s ease;
+}
+.modal-input:focus {
+  border-color: var(--primary);
+}
+select.modal-input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+  background-size: 14px;
+  padding-right: 40px;
+}
+
+input[type="date"].modal-input {
+  position: relative;
+}
+input[type="date"].modal-input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.btn-submit-yellow {
+  width: 100%;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.btn-submit-yellow:hover {
+  transform: translateY(-3px);
+  background: #eef4ff; 
+  color: var(--primary); 
+  border: 1px solid var(--primary);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modal-cancel {
+  text-align: center;
+  margin-top: 15px;
+  color: #999;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.modal-cancel:hover {
+  color: #666;
+}
+
+/* Анімація */
+.section-fade {
+  animation: fadeIn 0.3s ease-in-out;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#aTable td:nth-child(4), 
+#aTable td:nth-child(5) {
+  white-space: nowrap;
+}
+
+.d-flex {
+  display: flex;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-2 {
+  gap: 10px;
+}

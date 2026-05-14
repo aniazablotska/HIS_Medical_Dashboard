@@ -1,0 +1,26 @@
+{
+  "name": "his_project",
+  "version": "1.0.0",
+  "description": "Hospital Information System for LPNU Coursework",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node seed.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "hospital",
+    "system",
+    "lpnu",
+    "node",
+    "express",
+    "mongodb"
+  ],
+  "author": "Zablotska A.A.",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^9.6.2"
+  }
+}
