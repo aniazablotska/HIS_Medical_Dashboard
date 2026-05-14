@@ -180,7 +180,10 @@
     <script>
       let allServices = []; 
 
-      function openModal(id) { document.getElementById(id).classList.remove("d-none"); }
+      function openModal(id) { 
+    document.getElementById(id).classList.remove("d-none"); 
+    if (id === 'pModal') document.getElementById('pName').focus();
+}
       function closeModal(id) { 
   document.getElementById(id).classList.add("d-none"); 
   
