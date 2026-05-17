@@ -15,8 +15,20 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- ЕКРАН АВТОРИЗАЦІЇ -->
+<div id="login-screen" class="login-overlay">
+  <div class="login-card">
+    <i class="bi bi-shield-lock-fill"></i>
+    <h2>HIS Medical</h2>
+    <p>Введіть ідентифікатор доступу</p>
+    
+    <input type="password" id="admin-id-input" placeholder="Ідентифікатор" autocomplete="off">
+    
+    <button onclick="checkAdminAuth()" class="btn-login">Увійти в систему</button>
+  </div>
+</div>
     <div class="sidebar">
-      <!-- ОНОВЛЕНИЙ ЛОГОТИП З ІКОНКОЮ -->
+      <!--ЛОГОТИП З ІКОНКОЮ -->
       <div class="sidebar-brand">
         <div class="brand-icon">
           <i class="bi bi-heart-pulse-fill"></i>
@@ -179,6 +191,19 @@
 
     <script>
       let allServices = []; 
+
+      function checkAdminAuth() {
+  const inputEl = document.getElementById("admin-id-input");
+  if (inputEl.value === "0149") {
+    document.getElementById("login-screen").style.display = "none";
+    refresh(); 
+  } else {
+    alert("Помилка! Доступ заборонено.");
+    inputEl.value = ""; 
+    inputEl.focus();   
+  }
+}
+
 
       function openModal(id) { 
     document.getElementById(id).classList.remove("d-none"); 
